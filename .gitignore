@@ -1,0 +1,5 @@
+.env
+.DS_Store
+__pycache__
+financial_data.json
+venv
