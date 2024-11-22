@@ -6,20 +6,13 @@ from stock_analysis_tasks import StockAnalysisTasks
 import os
 from dotenv import load_dotenv
 load_dotenv()
-from langchain_google_genai import (ChatGoogleGenerativeAI, GoogleGenerativeAIEmbeddings,HarmBlockThreshold,
-    HarmCategory,)
+from langchain.chat_models import ChatOpenAI
 
-llm = ChatGoogleGenerativeAI(model="gemini-1.0-pro",
-        google_api_key=os.environ.get("GEMINI_API_KEY"),
-        temperature=0.1,
-        convert_system_message_to_human=True,
-        safety_settings={
-                HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT: HarmBlockThreshold.BLOCK_NONE,
-                HarmCategory.HARM_CATEGORY_HARASSMENT: HarmBlockThreshold.BLOCK_NONE,
-                HarmCategory.HARM_CATEGORY_HATE_SPEECH: HarmBlockThreshold.BLOCK_NONE,
-                HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT: HarmBlockThreshold.BLOCK_NONE
-            }
-    )
+llm = ChatOpenAI(
+    model="gpt-4",  # or "gpt-3.5-turbo" depending on your preference
+    openai_api_key=os.environ.get("OPENAI_API_KEY"),
+    temperature=0.1
+)
 
 class FinancialCrew:
   def __init__(self, company:str):
