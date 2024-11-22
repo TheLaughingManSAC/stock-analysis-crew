@@ -2,24 +2,21 @@ from crewai_tools import tool
 from crewai import Agent, Task
 import requests
 from bs4 import BeautifulSoup
-from langchain_google_genai import (ChatGoogleGenerativeAI, GoogleGenerativeAIEmbeddings,HarmBlockThreshold,
-    HarmCategory,)
 import os
 from dotenv import load_dotenv
 load_dotenv()
 
 
-llm = ChatGoogleGenerativeAI(model="gemini-1.0-pro",
-        google_api_key=os.environ.get("GEMINI_API_KEY"),
-        temperature=0.1,
-        convert_system_message_to_human=True,
-        safety_settings={
-                HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT: HarmBlockThreshold.BLOCK_NONE,
-                HarmCategory.HARM_CATEGORY_HARASSMENT: HarmBlockThreshold.BLOCK_NONE,
-                HarmCategory.HARM_CATEGORY_HATE_SPEECH: HarmBlockThreshold.BLOCK_NONE,
-                HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT: HarmBlockThreshold.BLOCK_NONE
-            }
-    )
+from groq import Groq
+
+# Initialize Groq Client
+groq_api_key = os.environ.get("GROQ_API_KEY")
+if not groq_api_key:
+    raise EnvironmentError("GROQ_API_KEY not found in environment variables.")
+
+llm = Groq(api_key=groq_api_key)  # Initialize the Groq instance
+
+
 
 class BrowserTools():
     

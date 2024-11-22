@@ -9,12 +9,15 @@ from dotenv import load_dotenv
 import os
 
 load_dotenv()
+from groq import Groq
 
-llm = ChatOpenAI(
-    model="gpt-4",  # or "gpt-3.5-turbo" depending on preference
-    openai_api_key=os.environ.get("OPENAI_API_KEY"),
-    temperature=0.1
-)
+# Initialize Groq Client
+groq_api_key = os.environ.get("GROQ_API_KEY")
+if not groq_api_key:
+    raise EnvironmentError("GROQ_API_KEY not found in environment variables.")
+
+llm = Groq(api_key=groq_api_key)  # Initialize the Groq instance
+
 
 class StockAnalysisAgents():
   def financial_analyst(self):

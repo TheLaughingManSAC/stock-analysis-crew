@@ -6,13 +6,15 @@ from stock_analysis_tasks import StockAnalysisTasks
 import os
 from dotenv import load_dotenv
 load_dotenv()
-from langchain.chat_models import ChatOpenAI
+from langchain_openai import ChatOpenAI
+from groq import Groq
 
-llm = ChatOpenAI(
-    model="gpt-4",  # or "gpt-3.5-turbo" depending on your preference
-    openai_api_key=os.environ.get("OPENAI_API_KEY"),
-    temperature=0.1
-)
+# Initialize Groq Client
+groq_api_key = os.environ.get("GROQ_API_KEY")
+if not groq_api_key:
+    raise EnvironmentError("GROQ_API_KEY not found in environment variables.")
+
+llm = Groq(api_key=groq_api_key)  # Initialize the Groq instance
 
 class FinancialCrew:
   def __init__(self, company:str):
