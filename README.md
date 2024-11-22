@@ -103,3 +103,9 @@ def local_expert(self):
 
 ## License
 This project is released under the MIT License.
+
+
+
+
+--------
+I created a virtual environment to test this shit, I will updates this more for myself to get all the correct installations needed due to there being an insane number of compatibility issues with new updates, some websites now charging money etc...
